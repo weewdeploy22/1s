@@ -32,116 +32,8 @@ var todoTasks = [
     },
     {
         serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
-        tasks: [],
-    },
-    {
-        serverID: 999,
-        titleLevel: '1s',
-        timeStepMs: (1 * 1000),
+        titleLevel: '2s',
+        timeStepMs: (2 * 1000),
         tasks: [],
     },
     {
@@ -348,6 +240,21 @@ const refreshTasks_fromTodo_1s = function () {
         }
     }
 }
+const refreshTasks_fromTodo_2s = function () {
+    const localTempTasks = todoTasks.filter(e => e.titleLevel === '2s')[global_currentNodeIndex].tasks;
+    if (localTempTasks.length > 0) {
+        sectionTasks_time = Date.now() + '';
+        for (let i = 0; i < localTempTasks.length; i++) {
+            const task = localTempTasks[i];
+            if (runningTasks.indexOf(task) > -1) {
+                // runningTasks[task] = task;
+                console.error('cannot-clear: runningTasks [task]:', task);
+            } else {
+                runningTasks.push(task);
+            }
+        }
+    }
+}
 const taskUpdating_refreshing = async function (currentTimeSec) {
     // 
 
@@ -383,14 +290,16 @@ const taskUpdating_refreshing = async function (currentTimeSec) {
     // TODO: refresh 30s-list
     if (
         // (currentTimeSec % 30) == 29
+        (currentTimeSec % 2) == 0
         // DEBUG: 30s ->1m
         // currentTimeSec == 59
-        true //1s
+        // true //1s
         // currentTimeSec == 0 + (60 - 1) ||
         // currentTimeSec == 30
     ) {
         // refreshTasks_fromTodo_30s()
-        refreshTasks_fromTodo_1s()
+        // refreshTasks_fromTodo_1s()
+        refreshTasks_fromTodo_2s()
 
         // // refresh 30s-list 
         // for (let i = 0; i < todoTasks[1].tasks.length; i++) {
@@ -410,6 +319,9 @@ const taskUpdating_refreshing = async function (currentTimeSec) {
         //     array3 = array1.concat(array2); 
         // , unique
         // array3.filter((item, pos) => array3.indexOf(item) === pos)
+
+        const time_save_at = Date.now() + '';
+        saveData_toLowDB(dbInMem, time_save_at);
     }
 
     // TODO: refresh 15m-list
@@ -424,8 +336,8 @@ const taskUpdating_refreshing = async function (currentTimeSec) {
     //     const time_save_at = Date.now() + '';
     //     saveData_toLowDB(dbInMem, time_save_at);
     // }
-    const time_save_at = Date.now() + '';
-    saveData_toLowDB(dbInMem, time_save_at);
+    // const time_save_at = Date.now() + '';
+    // saveData_toLowDB(dbInMem, time_save_at);
 
     return true;
 }
@@ -818,7 +730,8 @@ export async function main(
     // const numConn = 2;
     // const numConn = 20;
     // const numConn = 50;
-    const numConn = 250;
+    // const numConn = 250;
+    const numConn = 32;
     for (let i = 0; i < numConn; i++) {
         doingTasks.push(
             poolConn({ conn_i: i, options, url, key, })

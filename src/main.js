@@ -39,11 +39,12 @@ async function main() {
 
     // TODO: add-mode [MaxRedirectsError,woker]
     if (nodeType == 'single') {
-        const defaultLevel = '1s';
+        // const defaultLevel = '1s';
+        const defaultLevel = '2s';
         // const numNodes = 10;
-        // const currentNodeIndex = 0; //[CHG11C2302A001, SCP]
+        const currentNodeIndex = 0; //[CHG11C2302A001, SCP]
         // const currentNodeIndex = 1; //[SCP002, CHG11C2302A]
-        const currentNodeIndex = 2; //[CHG11C2302A002, SCP001]
+        // const currentNodeIndex = 2; //[CHG11C2302A002, SCP001]
         const reports = await mainOldPromiseAll({
             defaultLevel: defaultLevel,
             // numNodes: numNodes,
