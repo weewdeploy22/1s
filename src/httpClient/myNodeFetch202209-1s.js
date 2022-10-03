@@ -477,7 +477,7 @@ const poolConn = async function ({ conn_i, options, url, key, }) {
 
         // NOTE: run-runningTasks
         const popSymbol = runningTasks.pop();
-        console.log('popSymbol: ', popSymbol);
+        // console.log('popSymbol: ', popSymbol);
 
         // --check [symbol - not defined]
         if (typeof popSymbol == 'undefined') {
