@@ -15,8 +15,8 @@ const options =
         "x-requested-with": "XMLHttpRequest",
 
         // "cookie": "VarXXX",
-        //"Referer": "VarXXX",
 
+        "Referer": "https://wen043.settrade.com/realtime/fastorder/fastorder.jsp?platform=mm&frameHeight=60",
         "Referrer-Policy": "strict-origin-when-cross-origin"
     },
     // "body": "symbol=PTT&key=VarXXX",
@@ -28,7 +28,7 @@ const key = "VarXXX";
 // --
 // const url = `https://pokeapi.co/api/v2/pokemon/{(number)}`
 // const url = `https://pokeapi.co/api/v2/pokemon/1`
-const url = `VarXXX`
+const url = `https://wen043.settrade.com/webrealtime/data/fastquote.jsp`
 const url_ALLTASKS = `https://wen043.settrade.com/realtime/fastorder/fastorder.jsp?platform=mm`
 
 export default {
